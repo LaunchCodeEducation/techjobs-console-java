@@ -1,4 +1,4 @@
-package demos;
+package org.launchcode.java.demos;
 
 /**
  * Created by LaunchCode
@@ -18,5 +18,9 @@ public class Loops {
         for (int i = 0; i < 11; i++) {
             System.out.println(i);
         }
+    }
+
+    public static void printCharactersFromAString() {
+
     }
 }

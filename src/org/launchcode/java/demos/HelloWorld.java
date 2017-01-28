@@ -1,4 +1,4 @@
-package demos;
+package org.launchcode.java.demos;
 
 import java.util.Scanner;
 
@@ -18,5 +18,11 @@ public class HelloWorld {
 
         // Print a friendly message
         System.out.println("Hello, " + name + "!");
+
+        String string1 = new String("LaunchCode");
+        String string2 = new String("LaunchCode");
+
+        System.out.println(string1 == string2);
+        System.out.println(string1.equals(string2));
     }
 }
