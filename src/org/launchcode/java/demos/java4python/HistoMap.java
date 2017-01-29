@@ -18,7 +18,7 @@ public class HistoMap {
         Integer wordCount;
 
         try {
-            data = new Scanner(new File("alice.txt"));
+            data = new Scanner(new File("resources/alice.txt"));
         } catch ( IOException e) {
             System.out.println("Unable to open your data file");
             e.printStackTrace();
