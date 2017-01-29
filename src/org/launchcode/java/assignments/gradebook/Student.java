@@ -1,4 +1,4 @@
-package org.launchcode.java.exercises.gradebook;
+package org.launchcode.java.assignments.gradebook;
 
 /**
  * Created by LaunchCode

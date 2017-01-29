@@ -1,6 +1,8 @@
-package org.launchcode.java.exercises.gradebook;
+package org.launchcode.java.assignments.gradebook.tests;
 
 import org.junit.Test;
+import org.launchcode.java.assignments.gradebook.Student;
+
 import static org.junit.Assert.*;
 
 
