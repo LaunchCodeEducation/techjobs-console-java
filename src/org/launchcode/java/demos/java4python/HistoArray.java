@@ -14,7 +14,7 @@ public class HistoArray {
         Integer idx;
 
         try {
-            data = new Scanner(new File("test.dat"));
+            data = new Scanner(new File("resources/test.dat"));
         }
         catch ( IOException e) {
             System.out.println("Sorry but I was unable to open your data file");
@@ -29,7 +29,7 @@ public class HistoArray {
 
         idx = 0;
         for(Integer i : count) {
-            System.out.println(idx + " occured " + i + " times.");
+            System.out.println(idx + " occured " + i + " times");
             idx++;
         }
     }
