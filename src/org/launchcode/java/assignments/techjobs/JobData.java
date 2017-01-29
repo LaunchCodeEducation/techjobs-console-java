@@ -59,7 +59,12 @@ public class JobData {
         }
     }
 
-
+    /**
+     * Fetch list of all employers from loaded data,
+     * without duplicates.
+     *
+     * @return List of all employers with jobs listed
+     */
     public static ArrayList<String> getEmployers() {
 
         loadData();
@@ -77,6 +82,16 @@ public class JobData {
         return employers;
     }
 
+    /**
+     * Returns results of search the jobs data by employer, using
+     * inclusion of the search term.
+     *
+     * For example, searching for "Enterprise" will include results
+     * with "Enterprise Holdings, Inc" as the employer.
+     *
+     * @param employer  Name of an employer
+     * @return List of all jobs listed by the employer
+     */
     public static ArrayList<HashMap<String, String>> getJobsByEmployer(String employer) {
 
         loadData() ;
@@ -95,6 +110,12 @@ public class JobData {
         return jobs;
     }
 
+    /**
+     * Fetch list of all employers from loaded data,
+     * without duplicates.
+     *
+     * @return List of all employers with jobs listed
+     */
     public static ArrayList<String> getSkills() {
 
         loadData();
@@ -116,6 +137,16 @@ public class JobData {
         return skills;
     }
 
+    /**
+     * Returns results of search the jobs data by skill, using
+     * inclusion of the search term.
+     *
+     * For example, searching for "HTML" will include results
+     * with "HTML, JS, CSS" in the skills field.
+     *
+     * @param skill  Name of an skill
+     * @return List of all jobs listed containing the given skill
+     */
     public static ArrayList<HashMap<String, String>> getJobsBySkill(String skill) {
 
         loadData();
