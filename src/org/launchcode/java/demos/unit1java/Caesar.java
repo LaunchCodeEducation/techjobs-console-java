@@ -1,4 +1,4 @@
-package org.launchcode.java.demos;
+package org.launchcode.java.demos.unit1java;
 
 import java.util.Scanner;
 
@@ -34,8 +34,6 @@ public class Caesar {
                 Integer new_idx = (Character.getNumericValue(c) + 13) % 26;
             }
         }
-
-
 
         return encrypted;
     }
