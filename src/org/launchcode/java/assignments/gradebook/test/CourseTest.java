@@ -1,4 +1,4 @@
-package org.launchcode.java.assignments.gradebook.tests;
+package org.launchcode.java.assignments.gradebook.test;
 
 import org.junit.Test;
 import org.launchcode.java.assignments.gradebook.Course;
