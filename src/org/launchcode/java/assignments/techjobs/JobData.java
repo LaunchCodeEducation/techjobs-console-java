@@ -20,7 +20,7 @@ public class JobData {
     private static Boolean dataLoaded = false;
     private static Integer numberOfColumns;
 
-    private static ArrayList<HashMap<String, String>> jobs;
+    private static ArrayList<HashMap<String, String>> allJobs;
 
     private static void loadData() {
 
@@ -38,7 +38,7 @@ public class JobData {
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
 
-            jobs = new ArrayList<>();
+            allJobs = new ArrayList<>();
 
             for (CSVRecord record : records) {
                 HashMap<String, String> newJob = new HashMap<>();
@@ -48,7 +48,7 @@ public class JobData {
                     newJob.put(headerLabel, record.get(headerLabel));
                 }
 
-                jobs.add(newJob);
+                allJobs.add(newJob);
             }
 
             dataLoaded = true;
@@ -66,7 +66,7 @@ public class JobData {
 
         ArrayList<String> employers = new ArrayList<>();
 
-        for (HashMap<String, String> job : jobs) {
+        for (HashMap<String, String> job : allJobs) {
             String newEmployer = job.get("employer");
 
             if (!employers.contains(newEmployer)) {
@@ -77,12 +77,22 @@ public class JobData {
         return employers;
     }
 
-    public static ArrayList<String> getJobsByEmployer(String employer) {
+    public static ArrayList<HashMap<String, String>> getJobsByEmployer(String employer) {
 
         loadData() ;
 
-        // TODO
-        return null;
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+
+            String anEmployer = job.get("employer");
+
+            if (anEmployer.contains(employer)) {
+                jobs.add(job);
+            }
+        }
+
+        return jobs;
     }
 
     public static ArrayList<String> getSkills() {
@@ -91,7 +101,7 @@ public class JobData {
 
         ArrayList<String> skills = new ArrayList<>();
 
-        for (HashMap<String, String> job : jobs) {
+        for (HashMap<String, String> job : allJobs) {
             String skillsList = job.get("skills");
             String[] individualSkills = skillsList.split(",");
 
@@ -106,12 +116,22 @@ public class JobData {
         return skills;
     }
 
-    public static ArrayList<String> getJobsBySkill(String skill) {
+    public static ArrayList<HashMap<String, String>> getJobsBySkill(String skill) {
 
         loadData();
 
-        // TODO
-        return null;
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+
+            String jobSkills = job.get("skills");
+
+            if (jobSkills.contains(skill)) {
+                jobs.add(job);
+            }
+        }
+
+        return jobs;
     }
 
 }

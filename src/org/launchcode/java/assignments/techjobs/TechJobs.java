@@ -1,17 +1,122 @@
 package org.launchcode.java.assignments.techjobs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Created by LaunchCode
  */
 public class TechJobs {
 
-    public static void main (String[] args) {
-        ArrayList<String> skills = JobData.getSkills();
+    private static Scanner in = new Scanner(System.in);
 
-        for (String s : skills) {
-            System.out.println(s);
+    private static String[] actionChoices = {"Browse", "Search"};
+    private static String[] browserChoices = {"Skill", "Employer"};
+    private static String[] searchChoices = {"Skill", "Employer"};
+
+    public static void main (String[] args) {
+
+        System.out.println("Welcome to LaunchCode's TechJobs App!");
+        System.out.println("To exit, press ctrl+c");
+
+        do {
+
+            Integer actionChoice = displayChoiceMenu("View jobs", actionChoices);
+
+            if (actionChoices[actionChoice].equals("Browse")) {
+
+                Integer browseChoice = displayChoiceMenu("Browse", browserChoices);
+
+                if (browserChoices[browseChoice].equals("Employer")) {
+                    ArrayList<String> allEmployers = JobData.getEmployers();
+
+                    System.out.println("\n*** All employers ***");
+
+                    for (String employer : allEmployers) {
+                        System.out.println(employer);
+                    }
+
+                } else {
+                    ArrayList<String> allSkills = JobData.getSkills();
+
+                    System.out.println("\n*** All skills ***");
+
+                    for (String skill : allSkills) {
+                        System.out.println(skill);
+                    }
+                }
+
+            } else { // choice is "search"
+
+                // How does the use want to search (e.g. by skill or employer)
+                Integer searchChoice = displayChoiceMenu("Search", searchChoices);
+
+                // What is their search term?
+                System.out.println("\nSearch term: ");
+                String searchTerm = in.nextLine();
+
+                ArrayList<HashMap<String, String>> searchResults;
+
+                // Fetch and print results
+                if (searchChoices[searchChoice].equals("Skill")) {
+                    searchResults = JobData.getJobsBySkill(searchTerm);
+                } else {
+                    searchResults = JobData.getJobsByEmployer(searchTerm);
+                }
+
+                if (searchResults.size() == 0) {
+                    System.out.println("No results");
+                } else {
+                    printJobs(searchResults);
+                }
+            }
+
+        } while(true); // Allow user to search until they manually quit
+
+    }
+
+    private static Integer displayChoiceMenu(String choiceText, String[] choices) {
+
+        Integer result;
+        Boolean validChoice = false;
+
+        do {
+
+            System.out.println("\n" + choiceText + " by: ");
+
+            // Print available choices
+            for (Integer i = 0; i < choices.length; i++) {
+                System.out.println("" + i + " - " + choices[i]);
+            }
+
+            result = in.nextInt();
+            in.nextLine();
+
+            // Validate user's input
+            if (result < 0 || result >= choices.length) {
+                System.out.println("Invalid choice. Try again.");
+            } else {
+                validChoice = true;
+            }
+
+        } while(!validChoice);
+
+        return result;
+    }
+
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+
+        for (HashMap<String, String> job : someJobs) {
+
+            String jobString = "\n*****" +
+                    "\nEmployer: " + job.get("employer") +
+                    "\nName: " + job.get("name") +
+                    "\nDescription: " + job.get("desc") +
+                    "\nSkills: " + job.get("skills") +
+                    "\n*****";
+
+            System.out.println(jobString);
         }
     }
 }
