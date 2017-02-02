@@ -22,6 +22,9 @@ public class JobData {
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
+    /**
+     * Read in data from a CSV file and store it in a list
+     */
     private static void loadData() {
 
         // Only load data once
@@ -65,7 +68,7 @@ public class JobData {
      *
      * @return List of all employers with jobs listed
      */
-    public static ArrayList<String> getEmployers() {
+    public static ArrayList<String> getAllEmployers() {
 
         loadData();
 
@@ -116,7 +119,7 @@ public class JobData {
      *
      * @return List of all employers with jobs listed
      */
-    public static ArrayList<String> getSkills() {
+    public static ArrayList<String> getAllSkills() {
 
         loadData();
 

@@ -18,7 +18,6 @@ public class TechJobs {
     public static void main (String[] args) {
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
-        System.out.println("To exit, press ctrl+c");
 
         do {
 
@@ -29,7 +28,7 @@ public class TechJobs {
                 Integer browseChoice = displayChoiceMenu("Browse", browserChoices);
 
                 if (browserChoices[browseChoice].equals("Employer")) {
-                    ArrayList<String> allEmployers = JobData.getEmployers();
+                    ArrayList<String> allEmployers = JobData.getAllEmployers();
 
                     System.out.println("\n*** All employers ***");
 
@@ -38,7 +37,7 @@ public class TechJobs {
                     }
 
                 } else {
-                    ArrayList<String> allSkills = JobData.getSkills();
+                    ArrayList<String> allSkills = JobData.getAllSkills();
 
                     System.out.println("\n*** All skills ***");
 
@@ -49,7 +48,7 @@ public class TechJobs {
 
             } else { // choice is "search"
 
-                // How does the use want to search (e.g. by skill or employer)
+                // How does the user want to search (e.g. by skill or employer)
                 Integer searchChoice = displayChoiceMenu("Search", searchChoices);
 
                 // What is their search term?
