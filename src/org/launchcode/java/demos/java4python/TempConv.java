@@ -12,7 +12,7 @@ public class TempConv {
         Scanner in;
 
         in = new Scanner(System.in);
-        System.out.println("Enter the temperature in F: ");
+        System.out.println();
         fahrenheit = in.nextDouble();
 
         celsius = (fahrenheit - 32) * 5.0/9.0;
