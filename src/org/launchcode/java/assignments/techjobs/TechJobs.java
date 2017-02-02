@@ -19,7 +19,8 @@ public class TechJobs {
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
 
-        do {
+        // Allow user to search until they manually quit
+        while (true) {
 
             Integer actionChoice = displayChoiceMenu("View jobs", actionChoices);
 
@@ -71,10 +72,12 @@ public class TechJobs {
                 }
             }
 
-        } while(true); // Allow user to search until they manually quit
+        }
 
     }
 
+    // Displays a console menu offering choices from the parameter array choices.
+    // Input is validated and returned to the caller, once a valid choice is made.
     private static Integer displayChoiceMenu(String choiceText, String[] choices) {
 
         Integer result;
@@ -104,6 +107,7 @@ public class TechJobs {
         return result;
     }
 
+    // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
         for (HashMap<String, String> job : someJobs) {

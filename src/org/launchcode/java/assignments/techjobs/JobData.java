@@ -33,16 +33,17 @@ public class JobData {
         }
 
         try {
-            Reader in = new FileReader(DATA_FILE);
 
+            // Open the CSV file and set up pull out column header info and records
+            Reader in = new FileReader(DATA_FILE);
             CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
             List<CSVRecord> records = parser.getRecords();
             numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
-
             allJobs = new ArrayList<>();
 
+            // Put the records into a more friendly format
             for (CSVRecord record : records) {
                 HashMap<String, String> newJob = new HashMap<>();
 
@@ -54,6 +55,7 @@ public class JobData {
                 allJobs.add(newJob);
             }
 
+            // flag the data as loaded, so we don't do it twice
             dataLoaded = true;
 
         } catch (IOException e) {
@@ -70,6 +72,7 @@ public class JobData {
      */
     public static ArrayList<String> getAllEmployers() {
 
+        // load data, if not already loaded
         loadData();
 
         ArrayList<String> employers = new ArrayList<>();
@@ -97,7 +100,8 @@ public class JobData {
      */
     public static ArrayList<HashMap<String, String>> getJobsByEmployer(String employer) {
 
-        loadData() ;
+        // load data, if not already loaded
+        loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
@@ -121,6 +125,7 @@ public class JobData {
      */
     public static ArrayList<String> getAllSkills() {
 
+        // load data, if not already loaded
         loadData();
 
         ArrayList<String> skills = new ArrayList<>();
@@ -147,11 +152,12 @@ public class JobData {
      * For example, searching for "HTML" will include results
      * with "HTML, JS, CSS" in the skills field.
      *
-     * @param skill  Name of an skill
+     * @param skill  Name of a skill
      * @return List of all jobs listed containing the given skill
      */
     public static ArrayList<HashMap<String, String>> getJobsBySkill(String skill) {
 
+        // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
