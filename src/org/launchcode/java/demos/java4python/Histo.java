@@ -18,7 +18,7 @@ public class Histo {
         Integer idx;
 
         try {
-            data = new Scanner(new File("test.dat"));
+            data = new Scanner(new File("resources/test.dat"));
         }
         catch ( IOException e) {
             System.out.println("Unable to open your data file");
@@ -27,13 +27,13 @@ public class Histo {
         }
 
         count = new ArrayList<>();
-        for (Integer i =0; i<10;i++) {
+        for (Integer i =0; i<10; i++) {
             count.add(i,0);
         }
 
         while(data.hasNextInt()) {
             idx = data.nextInt();
-            count.set(idx,count.get(idx)+1);
+            count.set(idx, count.get(idx)+1);
         }
 
         idx = 0;
