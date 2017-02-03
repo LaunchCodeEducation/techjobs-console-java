@@ -18,7 +18,6 @@ public class JobData {
 
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean dataLoaded = false;
-    private static Integer numberOfColumns;
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
@@ -38,7 +37,7 @@ public class JobData {
             Reader in = new FileReader(DATA_FILE);
             CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
             List<CSVRecord> records = parser.getRecords();
-            numberOfColumns = records.get(0).size();
+            Integer numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
             allJobs = new ArrayList<>();
@@ -47,8 +46,7 @@ public class JobData {
             for (CSVRecord record : records) {
                 HashMap<String, String> newJob = new HashMap<>();
 
-                for (Integer i = 0; i < headers.length; i++) {
-                    String headerLabel = headers[i];
+                for (String headerLabel : headers) {
                     newJob.put(headerLabel, record.get(headerLabel));
                 }
 
