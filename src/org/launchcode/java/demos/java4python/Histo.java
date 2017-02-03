@@ -26,7 +26,7 @@ public class Histo {
             System.exit(0);
         }
 
-        count = new ArrayList<Integer>(10);
+        count = new ArrayList<>();
         for (Integer i =0; i<10;i++) {
             count.add(i,0);
         }
@@ -38,7 +38,7 @@ public class Histo {
 
         idx = 0;
         for(Integer i : count) {
-            System.out.println(idx + " occured " + i + " times");
+            System.out.println(idx + " occurred " + i + " times");
             idx++;
         }
     }
