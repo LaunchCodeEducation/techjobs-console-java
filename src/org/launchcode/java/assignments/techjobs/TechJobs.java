@@ -115,8 +115,8 @@ public class TechJobs {
             String jobString = "\n*****" +
                     "\nEmployer: " + job.get("employer") +
                     "\nName: " + job.get("name") +
-                    "\nDescription: " + job.get("desc") +
-                    "\nSkills: " + job.get("skills") +
+                    "\nLocation: " + job.get("location") +
+                    "\nSkills: " + job.get("core competency") +
                     "\n*****";
 
             System.out.println(jobString);

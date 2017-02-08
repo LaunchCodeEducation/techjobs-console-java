@@ -17,7 +17,7 @@ import java.util.List;
 public class JobData {
 
     private static final String DATA_FILE = "resources/job_data.csv";
-    private static Boolean dataLoaded = false;
+    private static Boolean isDataLoaded = false;
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
@@ -27,7 +27,7 @@ public class JobData {
     private static void loadData() {
 
         // Only load data once
-        if (dataLoaded) {
+        if (isDataLoaded) {
             return;
         }
 
@@ -54,7 +54,7 @@ public class JobData {
             }
 
             // flag the data as loaded, so we don't do it twice
-            dataLoaded = true;
+            isDataLoaded = true;
 
         } catch (IOException e) {
             System.out.println("Failed to load job data");
@@ -129,15 +129,13 @@ public class JobData {
         ArrayList<String> skills = new ArrayList<>();
 
         for (HashMap<String, String> job : allJobs) {
-            String skillsList = job.get("skills");
-            String[] individualSkills = skillsList.split(",");
+            String skill = job.get("core competency");
 
-            for (Integer i=0; i < individualSkills.length; i++) {
-                String newSkill = individualSkills[i].trim();
-                if (!skills.contains(newSkill)) {
-                    skills.add(newSkill);
-                }
+
+            if (!skills.contains(skill)) {
+                skills.add(skill);
             }
+
         }
 
         return skills;
@@ -162,7 +160,7 @@ public class JobData {
 
         for (HashMap<String, String> job : allJobs) {
 
-            String jobSkills = job.get("skills");
+            String jobSkills = job.get("core competency");
 
             if (jobSkills.contains(skill)) {
                 jobs.add(job);
