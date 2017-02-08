@@ -12,8 +12,8 @@ public class TechJobs {
     private static Scanner in = new Scanner(System.in);
 
     private static String[] actionChoices = {"Browse", "Search"};
-    private static String[] browserChoices = {"Skill", "Employer"};
-    private static String[] searchChoices = {"Skill", "Employer"};
+    private static String[] browserChoices = {"Skill", "Employer", "Position Type"};
+    private static String[] searchChoices = {"Skill", "Employer", "Position Type"};
 
     public static void main (String[] args) {
 
@@ -28,7 +28,18 @@ public class TechJobs {
 
                 Integer browseChoice = displayChoiceMenu("Browse", browserChoices);
 
-                if (browserChoices[browseChoice].equals("Employer")) {
+                if (browserChoices[browseChoice].equals("Skill")) {
+
+                    ArrayList<String> allSkills = JobData.getAllSkills();
+
+                    System.out.println("\n*** All skills ***");
+
+                    for (String skill : allSkills) {
+                        System.out.println(skill);
+                    }
+
+                } else if (browserChoices[browseChoice].equals("Employer")) {
+
                     ArrayList<String> allEmployers = JobData.getAllEmployers();
 
                     System.out.println("\n*** All employers ***");
@@ -38,12 +49,13 @@ public class TechJobs {
                     }
 
                 } else {
-                    ArrayList<String> allSkills = JobData.getAllSkills();
+                    // selection must be position type
+                    ArrayList<String> allPositionTypes = JobData.getAllPositionTypes();
 
-                    System.out.println("\n*** All skills ***");
+                    System.out.println("\n*** All position types ***");
 
-                    for (String skill : allSkills) {
-                        System.out.println(skill);
+                    for (String positionType : allPositionTypes) {
+                        System.out.println(positionType);
                     }
                 }
 
@@ -61,8 +73,11 @@ public class TechJobs {
                 // Fetch and print results
                 if (searchChoices[searchChoice].equals("Skill")) {
                     searchResults = JobData.getJobsBySkill(searchTerm);
-                } else {
+                } else if (searchChoices[searchChoice].equals("Employer")) {
                     searchResults = JobData.getJobsByEmployer(searchTerm);
+                } else {
+                    // choice must be position type
+                    searchResults = JobData.getJobsByPositionType(searchTerm);
                 }
 
                 if (searchResults.size() == 0) {
@@ -116,6 +131,7 @@ public class TechJobs {
                     "\nEmployer: " + job.get("employer") +
                     "\nName: " + job.get("name") +
                     "\nLocation: " + job.get("location") +
+                    "\nPosition Type: " + job.get("position type") +
                     "\nSkills: " + job.get("core competency") +
                     "\n*****";
 

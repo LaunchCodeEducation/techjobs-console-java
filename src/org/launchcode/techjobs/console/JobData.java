@@ -131,7 +131,6 @@ public class JobData {
         for (HashMap<String, String> job : allJobs) {
             String skill = job.get("core competency");
 
-
             if (!skills.contains(skill)) {
                 skills.add(skill);
             }
@@ -162,7 +161,46 @@ public class JobData {
 
             String jobSkills = job.get("core competency");
 
-            if (jobSkills.contains(skill)) {
+            if (jobSkills.toLowerCase().contains(skill.toLowerCase())) {
+                jobs.add(job);
+            }
+        }
+
+        return jobs;
+    }
+
+    public static ArrayList<String> getAllPositionTypes() {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<String> positionTypes = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+            String skill = job.get("position type");
+
+
+            if (!positionTypes.contains(skill)) {
+                positionTypes.add(skill);
+            }
+
+        }
+
+        return positionTypes;
+    }
+
+    public static ArrayList<HashMap<String,String>> getJobsByPositionType(String searchTerm) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+
+            String coreSkill = job.get("core competency");
+
+            if (coreSkill.toLowerCase().contains(searchTerm.toLowerCase())) {
                 jobs.add(job);
             }
         }
