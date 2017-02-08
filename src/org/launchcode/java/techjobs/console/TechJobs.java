@@ -1,7 +1,5 @@
 package org.launchcode.java.techjobs.console;
 
-import org.launchcode.java.techjobs.console.JobData;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
