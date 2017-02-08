@@ -27,7 +27,7 @@ public class TechJobs {
 
                 Integer browseChoice = displayChoiceMenu("Browse", fieldChoices);
                 ArrayList<String> browseList;
-                
+
                 if (fieldChoices[browseChoice].equals("Skill")) {
 
                     browseList = JobData.getAllSkills();

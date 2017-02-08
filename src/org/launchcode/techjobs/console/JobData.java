@@ -169,6 +169,12 @@ public class JobData {
         return jobs;
     }
 
+    /**
+     * Fetch list of all position types from loaded data,
+     * without duplicates.
+     *
+     * @return List of all position types
+     */
     public static ArrayList<String> getAllPositionTypes() {
 
         // load data, if not already loaded
@@ -189,7 +195,14 @@ public class JobData {
         return positionTypes;
     }
 
-    public static ArrayList<HashMap<String,String>> getJobsByPositionType(String searchTerm) {
+    /**
+     * Returns results of search the jobs data by position type,
+     * using inclusion of the search term.
+     *
+     * @param positionType  Name of a position type to search for
+     * @return List of all jobs listed containing the given position
+     */
+    public static ArrayList<HashMap<String,String>> getJobsByPositionType(String positionType) {
 
         // load data, if not already loaded
         loadData();
@@ -200,7 +213,7 @@ public class JobData {
 
             String coreSkill = job.get("core competency");
 
-            if (coreSkill.toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (coreSkill.toLowerCase().contains(positionType.toLowerCase())) {
                 jobs.add(job);
             }
         }
