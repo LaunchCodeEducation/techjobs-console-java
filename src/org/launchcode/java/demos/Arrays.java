@@ -22,4 +22,19 @@ public class Arrays {
             System.out.println(numbers[i]);
         }
     }
+
+    public static void arrayCreation() {
+
+        // Declare and initialize an empty array of 10 Integers
+        Integer[] someInts = new Integer[10];
+
+        // Declare and initialize an array using an array literal
+        Integer[] someOtherInts = {1, 1, 2, 3, 5, 8};
+
+        for (Integer i : someInts) {
+            System.out.println(i);
+        }
+
+
+    }
 }
