@@ -26,24 +26,21 @@ public class TechJobs {
             if (actionChoices[actionChoice].equals("Browse")) {
 
                 Integer browseChoice = displayChoiceMenu("Browse", fieldChoices);
+                ArrayList<String> browseList;
 
                 if (fieldChoices[browseChoice].equals("Employer")) {
-                    ArrayList<String> allEmployers = JobData.getAllEmployers();
 
+                    browseList = JobData.getAllEmployers();
                     System.out.println("\n*** All employers ***");
 
-                    for (String employer : allEmployers) {
-                        System.out.println(employer);
-                    }
-
                 } else {
-                    ArrayList<String> allSkills = JobData.getAllSkills();
-
+                    browseList = JobData.getAllSkills();
                     System.out.println("\n*** All skills ***");
+                }
 
-                    for (String skill : allSkills) {
-                        System.out.println(skill);
-                    }
+                // Print list of skills, employers, etc
+                for (String item : browseList) {
+                    System.out.println(item);
                 }
 
             } else { // choice is "search"
