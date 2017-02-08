@@ -1,4 +1,6 @@
-package org.launchcode.java.assignments.techjobs;
+package org.launchcode.java.techjobs.console;
+
+import org.launchcode.java.techjobs.console.JobData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

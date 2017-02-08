@@ -1,4 +1,4 @@
-package org.launchcode.java.assignments.techjobs;
+package org.launchcode.java.techjobs.console;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
