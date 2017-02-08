@@ -12,8 +12,7 @@ public class TechJobs {
     private static Scanner in = new Scanner(System.in);
 
     private static String[] actionChoices = {"Browse", "Search"};
-    private static String[] browserChoices = {"Skill", "Employer"};
-    private static String[] searchChoices = {"Skill", "Employer"};
+    private static String[] fieldChoices = {"Skill", "Employer"};
 
     public static void main (String[] args) {
 
@@ -26,9 +25,9 @@ public class TechJobs {
 
             if (actionChoices[actionChoice].equals("Browse")) {
 
-                Integer browseChoice = displayChoiceMenu("Browse", browserChoices);
+                Integer browseChoice = displayChoiceMenu("Browse", fieldChoices);
 
-                if (browserChoices[browseChoice].equals("Employer")) {
+                if (fieldChoices[browseChoice].equals("Employer")) {
                     ArrayList<String> allEmployers = JobData.getAllEmployers();
 
                     System.out.println("\n*** All employers ***");
@@ -50,7 +49,7 @@ public class TechJobs {
             } else { // choice is "search"
 
                 // How does the user want to search (e.g. by skill or employer)
-                Integer searchChoice = displayChoiceMenu("Search", searchChoices);
+                Integer searchChoice = displayChoiceMenu("Search", fieldChoices);
 
                 // What is their search term?
                 System.out.println("\nSearch term: ");
@@ -59,7 +58,7 @@ public class TechJobs {
                 ArrayList<HashMap<String, String>> searchResults;
 
                 // Fetch and print results
-                if (searchChoices[searchChoice].equals("Skill")) {
+                if (fieldChoices[searchChoice].equals("Skill")) {
                     searchResults = JobData.getJobsBySkill(searchTerm);
                 } else {
                     searchResults = JobData.getJobsByEmployer(searchTerm);
