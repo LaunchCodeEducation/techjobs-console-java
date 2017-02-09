@@ -211,7 +211,7 @@ public class JobData {
 
         for (HashMap<String, String> job : allJobs) {
 
-            String coreSkill = job.get("core competency");
+            String coreSkill = job.get("position type");
 
             if (coreSkill.toLowerCase().contains(positionType.toLowerCase())) {
                 jobs.add(job);

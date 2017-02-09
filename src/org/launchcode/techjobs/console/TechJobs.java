@@ -12,7 +12,7 @@ public class TechJobs {
     private static Scanner in = new Scanner(System.in);
 
     private static String[] actionChoices = {"Browse", "Search"};
-    private static String[] fieldChoices = {"Skill", "Employer"};
+    private static String[] fieldChoices = {"Skill", "Employer", "Position Type"};
 
     public static void main (String[] args) {
 
