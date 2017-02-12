@@ -76,8 +76,8 @@ public class JobData {
 
         ArrayList<String> values = new ArrayList<>();
 
-        for (HashMap<String, String> job : allJobs) {
-            String aValue = job.get(field);
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.get(field);
 
             if (!values.contains(aValue)) {
                 values.add(aValue);
@@ -114,12 +114,12 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> job : allJobs) {
+        for (HashMap<String, String> row : allJobs) {
 
-            String aValue = job.get(key);
+            String aValue = row.get(key);
 
             if (aValue.toLowerCase().contains(value.toLowerCase())) {
-                jobs.add(job);
+                jobs.add(row);
             }
         }
 
@@ -139,13 +139,13 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> job : allJobs) {
+        for (HashMap<String, String> row : allJobs) {
 
-            for (String key : job.keySet()) {
-                String aValue = job.get(key);
+            for (String key : row.keySet()) {
+                String aValue = row.get(key);
 
                 if (aValue.toLowerCase().contains(value.toLowerCase())) {
-                    jobs.add(job);
+                    jobs.add(row);
 
                     // Finding one field in a job that matches is sufficient
                     break;
