@@ -64,7 +64,7 @@ public class JobData {
 
     /**
      * Fetch list of all values from loaded data,
-     * without duplicates.
+     * without duplicates, for a given column.
      *
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
@@ -118,44 +118,12 @@ public class JobData {
 
             String aValue = job.get(key);
 
-            if (aValue.toLowerCase().contains(value.toLowerCase())) {
+            if (aValue.contains(value)) {
                 jobs.add(job);
             }
         }
 
         return jobs;
     }
-
-    /**
-     * Search all columns for the given term
-     *
-     * @param value The search term to look for
-     * @return      List of all jobs with at least one field containing the value
-     */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
-        // load data, if not already loaded
-        loadData();
-
-        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-
-        for (HashMap<String, String> job : allJobs) {
-
-            for (String key : job.keySet()) {
-                String aValue = job.get(key);
-
-                if (aValue.toLowerCase().contains(value.toLowerCase())) {
-                    jobs.add(job);
-
-                    // Finding one field in a job that matches is sufficient
-                    break;
-                }
-            }
-        }
-
-        return jobs;
-
-    }
-
 
 }
