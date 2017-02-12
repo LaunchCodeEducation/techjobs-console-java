@@ -11,69 +11,66 @@ public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
 
-    private static String[] actionChoices = {"Browse", "Search"};
-    private static String[] fieldChoices = {"Skill", "Employer", "Position Type"};
-
     public static void main (String[] args) {
+
+        // Initialize our field map with key/name pairs
+        HashMap<String, String> fieldChoices = new HashMap<>();
+        fieldChoices.put("core competency", "Skill");
+        fieldChoices.put("employer", "Employer");
+        fieldChoices.put("position type", "Position Type");
+        fieldChoices.put("all", "All");
+
+        // Top-level menu options
+        HashMap<String, String> actionChoices = new HashMap<>();
+        actionChoices.put("search", "Search");
+        actionChoices.put("list", "List");
+
+        // Initialize keys array
+        String[] fieldNames = new String[fieldChoices.size()];
+        Integer i = 0;
+        for (String value : fieldChoices.values()) {
+            fieldNames[i] = value;
+            i++;
+        }
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
 
         // Allow user to search until they manually quit
         while (true) {
 
-            Integer actionChoice = displayChoiceMenu("View jobs", actionChoices);
+            String actionChoice = getUserSelection("View jobs by:", actionChoices);
 
-            if (actionChoices[actionChoice].equals("Browse")) {
+            if (actionChoice.equals("list")) {
 
-                Integer browseChoice = displayChoiceMenu("Browse", fieldChoices);
-                ArrayList<String> browseList;
+                String browseChoice = getUserSelection("List", fieldChoices);
+                ArrayList<String> browseList = JobData.findAll(browseChoice);
 
-                if (fieldChoices[browseChoice].equals("Skill")) {
-
-                    browseList = JobData.getAllSkills();
-                    System.out.println("\n*** All skills ***");
-
-                } else if (fieldChoices[browseChoice].equals("Employer")) {
-
-                    browseList = JobData.getAllEmployers();
-                    System.out.println("\n*** All employers ***");
-
+                if (browseChoice.equals("all")) {
+                    printJobs(JobData.findAll());
                 } else {
-                    // selection must be position type
-                    browseList = JobData.getAllPositionTypes();
-                    System.out.println("\n*** All position types ***");
+                    System.out.println("\n*** All " + fieldChoices.get(browseChoice) + " Values ***");
+
+                    // Print list of skills, employers, etc
+                    for (String item : browseList) {
+                        System.out.println(item);
+                    }
                 }
 
-                // Print list of skills, employers, etc
-                for (String item : browseList) {
-                    System.out.println(item);
-                }
+
 
             } else { // choice is "search"
 
                 // How does the user want to search (e.g. by skill or employer)
-                Integer searchChoice = displayChoiceMenu("Search", fieldChoices);
+                String searchField = getUserSelection("Search by:", fieldChoices);
 
                 // What is their search term?
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
 
-                ArrayList<HashMap<String, String>> searchResults;
-
-                // Fetch and print results
-                if (fieldChoices[searchChoice].equals("Skill")) {
-                    searchResults = JobData.getJobsBySkill(searchTerm);
-                } else if (fieldChoices[searchChoice].equals("Employer")) {
-                    searchResults = JobData.getJobsByEmployer(searchTerm);
+                if (searchField.equals("all")) {
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
-                    // choice must be position type
-                    searchResults = JobData.getJobsByPositionType(searchTerm);
-                }
-
-                if (searchResults.size() == 0) {
-                    System.out.println("No results");
-                } else {
-                    printJobs(searchResults);
+                    printJobs(JobData.findByKeyAndValue(searchField, searchTerm));
                 }
             }
 
@@ -83,25 +80,34 @@ public class TechJobs {
 
     // Displays a console menu offering choices from the parameter array choices.
     // Input is validated and returned to the caller, once a valid choice is made.
-    private static Integer displayChoiceMenu(String choiceText, String[] choices) {
+    private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-        Integer result;
+        Integer choiceIdx;
         Boolean validChoice = false;
+        String[] choiceKeys = new String[choices.size()];
+
+        // Put the choices in an ordered structure so we can
+        // associate an integer with each one
+        Integer i = 0;
+        for (String choiceKey : choices.keySet()) {
+            choiceKeys[i] = choiceKey;
+            i++;
+        }
 
         do {
 
-            System.out.println("\n" + choiceText + " by: ");
+            System.out.println("\n" + menuHeader);
 
             // Print available choices
-            for (Integer i = 0; i < choices.length; i++) {
-                System.out.println("" + i + " - " + choices[i]);
+            for (Integer j = 0; j < choiceKeys.length; j++) {
+                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
 
-            result = in.nextInt();
+            choiceIdx = in.nextInt();
             in.nextLine();
 
             // Validate user's input
-            if (result < 0 || result >= choices.length) {
+            if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
                 System.out.println("Invalid choice. Try again.");
             } else {
                 validChoice = true;
@@ -109,11 +115,16 @@ public class TechJobs {
 
         } while(!validChoice);
 
-        return result;
+        return choiceKeys[choiceIdx];
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+
+        if (someJobs.size() == 0) {
+            System.out.print("No Results");
+            return;
+        }
 
         for (HashMap<String, String> job : someJobs) {
 

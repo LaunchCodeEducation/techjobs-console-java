@@ -63,40 +63,51 @@ public class JobData {
     }
 
     /**
-     * Fetch list of all employers from loaded data,
+     * Fetch list of all values from loaded data,
      * without duplicates.
      *
-     * @return List of all employers with jobs listed
+     * @param field The column to retrieve values from
+     * @return List of all of the values of the given field
      */
-    public static ArrayList<String> getAllEmployers() {
+    public static ArrayList<String> findAll(String field) {
 
         // load data, if not already loaded
         loadData();
 
-        ArrayList<String> employers = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>();
 
         for (HashMap<String, String> job : allJobs) {
-            String newEmployer = job.get("employer");
+            String aValue = job.get(field);
 
-            if (!employers.contains(newEmployer)) {
-                employers.add(newEmployer);
+            if (!values.contains(aValue)) {
+                values.add(aValue);
             }
         }
 
-        return employers;
+        return values;
+    }
+
+    public static ArrayList<HashMap<String, String>> findAll() {
+
+        // load data, if not already loaded
+        loadData();
+
+        return allJobs;
+
     }
 
     /**
-     * Returns results of search the jobs data by employer, using
+     * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
      *
-     * For example, searching for "Enterprise" will include results
-     * with "Enterprise Holdings, Inc" as the employer.
+     * For example, searching for employer "Enterprise" will include results
+     * with "Enterprise Holdings, Inc".
      *
-     * @param employer  Name of an employer
-     * @return List of all jobs listed by the employer
+     * @param key   Column that should be searched.
+     * @param value Value of teh field to search for
+     * @return List of all jobs matching the criteria
      */
-    public static ArrayList<HashMap<String, String>> getJobsByEmployer(String employer) {
+    public static ArrayList<HashMap<String, String>> findByKeyAndValue(String key, String value) {
 
         // load data, if not already loaded
         loadData();
@@ -105,9 +116,9 @@ public class JobData {
 
         for (HashMap<String, String> job : allJobs) {
 
-            String anEmployer = job.get("employer");
+            String aValue = job.get(key);
 
-            if (anEmployer.contains(employer)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(job);
             }
         }
@@ -116,41 +127,12 @@ public class JobData {
     }
 
     /**
-     * Fetch list of all employers from loaded data,
-     * without duplicates.
+     * Search all columns for the given term
      *
-     * @return List of all employers with jobs listed
+     * @param value The search term to look for
+     * @return      List of all jobs with at least one field containing the value
      */
-    public static ArrayList<String> getAllSkills() {
-
-        // load data, if not already loaded
-        loadData();
-
-        ArrayList<String> skills = new ArrayList<>();
-
-        for (HashMap<String, String> job : allJobs) {
-            String skill = job.get("core competency");
-
-            if (!skills.contains(skill)) {
-                skills.add(skill);
-            }
-
-        }
-
-        return skills;
-    }
-
-    /**
-     * Returns results of search the jobs data by skill, using
-     * inclusion of the search term.
-     *
-     * For example, searching for "HTML" will include results
-     * with "HTML, JS, CSS" in the skills field.
-     *
-     * @param skill  Name of a skill
-     * @return List of all jobs listed containing the given skill
-     */
-    public static ArrayList<HashMap<String, String>> getJobsBySkill(String skill) {
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
         // load data, if not already loaded
         loadData();
@@ -159,66 +141,21 @@ public class JobData {
 
         for (HashMap<String, String> job : allJobs) {
 
-            String jobSkills = job.get("core competency");
+            for (String key : job.keySet()) {
+                String aValue = job.get(key);
 
-            if (jobSkills.toLowerCase().contains(skill.toLowerCase())) {
-                jobs.add(job);
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    jobs.add(job);
+
+                    // Finding one field in a job that matches is sufficient
+                    break;
+                }
             }
         }
 
         return jobs;
+
     }
 
-    /**
-     * Fetch list of all position types from loaded data,
-     * without duplicates.
-     *
-     * @return List of all position types
-     */
-    public static ArrayList<String> getAllPositionTypes() {
-
-        // load data, if not already loaded
-        loadData();
-
-        ArrayList<String> positionTypes = new ArrayList<>();
-
-        for (HashMap<String, String> job : allJobs) {
-            String skill = job.get("position type");
-
-
-            if (!positionTypes.contains(skill)) {
-                positionTypes.add(skill);
-            }
-
-        }
-
-        return positionTypes;
-    }
-
-    /**
-     * Returns results of search the jobs data by position type,
-     * using inclusion of the search term.
-     *
-     * @param positionType  Name of a position type to search for
-     * @return List of all jobs listed containing the given position
-     */
-    public static ArrayList<HashMap<String,String>> getJobsByPositionType(String positionType) {
-
-        // load data, if not already loaded
-        loadData();
-
-        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-
-        for (HashMap<String, String> job : allJobs) {
-
-            String coreSkill = job.get("position type");
-
-            if (coreSkill.toLowerCase().contains(positionType.toLowerCase())) {
-                jobs.add(job);
-            }
-        }
-
-        return jobs;
-    }
 
 }
