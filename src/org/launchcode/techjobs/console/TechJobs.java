@@ -14,41 +14,33 @@ public class TechJobs {
     public static void main (String[] args) {
 
         // Initialize our field map with key/name pairs
-        HashMap<String, String> fieldChoices = new HashMap<>();
-        fieldChoices.put("core competency", "Skill");
-        fieldChoices.put("employer", "Employer");
-        fieldChoices.put("position type", "Position Type");
-        fieldChoices.put("all", "All");
+        HashMap<String, String> columnChoices = new HashMap<>();
+        columnChoices.put("core competency", "Skill");
+        columnChoices.put("employer", "Employer");
+        columnChoices.put("position type", "Position Type");
+        columnChoices.put("all", "All");
 
         // Top-level menu options
         HashMap<String, String> actionChoices = new HashMap<>();
         actionChoices.put("search", "Search");
         actionChoices.put("list", "List");
 
-        // Initialize keys array
-        String[] fieldNames = new String[fieldChoices.size()];
-        Integer i = 0;
-        for (String value : fieldChoices.values()) {
-            fieldNames[i] = value;
-            i++;
-        }
-
         System.out.println("Welcome to LaunchCode's TechJobs App!");
 
-        // Allow user to search until they manually quit
+        // Allow the user to search until they manually quit
         while (true) {
 
             String actionChoice = getUserSelection("View jobs by:", actionChoices);
 
             if (actionChoice.equals("list")) {
 
-                String browseChoice = getUserSelection("List", fieldChoices);
+                String browseChoice = getUserSelection("List", columnChoices);
                 ArrayList<String> browseList = JobData.findAll(browseChoice);
 
                 if (browseChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } else {
-                    System.out.println("\n*** All " + fieldChoices.get(browseChoice) + " Values ***");
+                    System.out.println("\n*** All " + columnChoices.get(browseChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
                     for (String item : browseList) {
@@ -61,7 +53,7 @@ public class TechJobs {
             } else { // choice is "search"
 
                 // How does the user want to search (e.g. by skill or employer)
-                String searchField = getUserSelection("Search by:", fieldChoices);
+                String searchField = getUserSelection("Search by:", columnChoices);
 
                 // What is their search term?
                 System.out.println("\nSearch term: ");
