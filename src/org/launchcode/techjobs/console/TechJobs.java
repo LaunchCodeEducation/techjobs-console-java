@@ -35,21 +35,21 @@ public class TechJobs {
 
             if (actionChoice.equals("list")) {
 
-                String browseChoice = getUserSelection("List", columnChoices);
-                ArrayList<String> browseList = JobData.findAll(browseChoice);
+                String columnChoice = getUserSelection("List", columnChoices);
 
-                if (browseChoice.equals("all")) {
+                if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } else {
-                    System.out.println("\n*** All " + columnChoices.get(browseChoice) + " Values ***");
+
+                    ArrayList<String> results = JobData.findAll(columnChoice);
+
+                    System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
-                    for (String item : browseList) {
+                    for (String item : results) {
                         System.out.println(item);
                     }
                 }
-
-
 
             } else { // choice is "search"
 
@@ -66,13 +66,10 @@ public class TechJobs {
                     printJobs(JobData.findByKeyAndValue(searchField, searchTerm));
                 }
             }
-
         }
-
     }
 
-    // Displays a console menu offering choices from the parameter array choices.
-    // Input is validated and returned to the caller, once a valid choice is made.
+    // ﻿Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
         Integer choiceIdx;

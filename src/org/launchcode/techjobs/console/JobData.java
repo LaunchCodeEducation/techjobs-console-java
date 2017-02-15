@@ -22,6 +22,69 @@ public class JobData {
     private static ArrayList<HashMap<String, String>> allJobs;
 
     /**
+     * Fetch list of all values from loaded data,
+     * without duplicates, for a given column.
+     *
+     * @param field The column to retrieve values from
+     * @return List of all of the values of the given field
+     */
+    public static ArrayList<String> findAll(String field) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<String> values = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.get(field);
+
+            if (!values.contains(aValue)) {
+                values.add(aValue);
+            }
+        }
+
+        return values;
+    }
+
+    public static ArrayList<HashMap<String, String>> findAll() {
+
+        // load data, if not already loaded
+        loadData();
+
+        return allJobs;
+    }
+
+    /**
+     * Returns results of search the jobs data by key/value, using
+     * inclusion of the search term.
+     *
+     * For example, searching for employer "Enterprise" will include results
+     * with "Enterprise Holdings, Inc".
+     *
+     * @param key   Column that should be searched.
+     * @param value Value of teh field to search for
+     * @return List of all jobs matching the criteria
+     */
+    public static ArrayList<HashMap<String, String>> findByKeyAndValue(String key, String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+
+            String aValue = row.get(key);
+
+            if (aValue.contains(value)) {
+                jobs.add(row);
+            }
+        }
+
+        return jobs;
+    }
+
+    /**
      * Read in data from a CSV file and store it in a list
      */
     private static void loadData() {
@@ -60,70 +123,6 @@ public class JobData {
             System.out.println("Failed to load job data");
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Fetch list of all values from loaded data,
-     * without duplicates, for a given column.
-     *
-     * @param field The column to retrieve values from
-     * @return List of all of the values of the given field
-     */
-    public static ArrayList<String> findAll(String field) {
-
-        // load data, if not already loaded
-        loadData();
-
-        ArrayList<String> values = new ArrayList<>();
-
-        for (HashMap<String, String> row : allJobs) {
-            String aValue = row.get(field);
-
-            if (!values.contains(aValue)) {
-                values.add(aValue);
-            }
-        }
-
-        return values;
-    }
-
-    public static ArrayList<HashMap<String, String>> findAll() {
-
-        // load data, if not already loaded
-        loadData();
-
-        return allJobs;
-
-    }
-
-    /**
-     * Returns results of search the jobs data by key/value, using
-     * inclusion of the search term.
-     *
-     * For example, searching for employer "Enterprise" will include results
-     * with "Enterprise Holdings, Inc".
-     *
-     * @param key   Column that should be searched.
-     * @param value Value of teh field to search for
-     * @return List of all jobs matching the criteria
-     */
-    public static ArrayList<HashMap<String, String>> findByKeyAndValue(String key, String value) {
-
-        // load data, if not already loaded
-        loadData();
-
-        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-
-        for (HashMap<String, String> row : allJobs) {
-
-            String aValue = row.get(key);
-
-            if (aValue.contains(value)) {
-                jobs.add(row);
-            }
-        }
-
-        return jobs;
     }
 
 }
