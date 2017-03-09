@@ -22,7 +22,7 @@ public class JobData {
     private static ArrayList<HashMap<String, String>> allJobs;
 
     /**
-     * Fetch list of all values from loaded data,
+     * Fetch list of all values from the loaded data,
      * without duplicates, for a given column.
      *
      * @param field The column to retrieve values from
