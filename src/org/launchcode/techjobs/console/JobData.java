@@ -10,6 +10,8 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.lang.String;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -61,11 +63,78 @@ public class JobData {
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
+
      * @param value Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
-    public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+
+        loadData();
+      //  ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+/*
+
+old code edited 5/30/18 7:23
+        for (HashMap<String, String> column : allJobs) {
+            // Loop though everything contained in the dictionary
+            for (String fields : column.values()) {
+
+                //if the search term is contained
+                if (fields.toLowerCase().contains(value)) {
+                    jobs.add(column);
+                    //System.out.println("******");
+                    break; // prevents duplicates from showing up in the array list
+                }
+            }
+        }
+
+
+        return jobs;
+
+
+        */
+//start new code
+        value = value.toLowerCase();
+        //get search term in and conver it to lower case
+
+        loadData();
+        //load data
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        //create hashmap to get returned
+        for (HashMap<String, String> job : allJobs ){
+            //iterate through all jobs
+            for (String key : job.keySet()){
+                //iterate through all jobs by key**
+                //System.out.println(job.get(key)+" ************************!!!!!!! KEY");
+                if(job.get(key).toLowerCase().contains(value)){
+                    //if value is in the hashmap job and also the key is in the hashmap the search term is found
+//or you can add a new line character in the .add method
+                    jobs.add(job);
+
+                    break;//break if dup
+                    /*
+
+                    if it doesn't contain do something I wouldn't use break.
+                     */
+                }
+
+            }
+        }
+
+        return jobs;
+
+
+    }
+
+
+
+
+
+
+
+        public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
         // load data, if not already loaded
         loadData();
@@ -78,6 +147,7 @@ public class JobData {
 
             if (aValue.contains(value)) {
                 jobs.add(row);
+
             }
         }
 
