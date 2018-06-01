@@ -72,31 +72,10 @@ public class JobData {
 
 
         loadData();
-      //  ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-/*
 
-old code edited 5/30/18 7:23
-        for (HashMap<String, String> column : allJobs) {
-            // Loop though everything contained in the dictionary
-            for (String fields : column.values()) {
-
-                //if the search term is contained
-                if (fields.toLowerCase().contains(value)) {
-                    jobs.add(column);
-                    //System.out.println("******");
-                    break; // prevents duplicates from showing up in the array list
-                }
-            }
-        }
-
-
-        return jobs;
-
-
-        */
 //start new code
         value = value.toLowerCase();
-        //get search term in and conver it to lower case
+        //get search term in and convert it to lower case
 
         loadData();
         //load data
@@ -108,7 +87,7 @@ old code edited 5/30/18 7:23
             for (String key : job.keySet()){
                 //iterate through all jobs by key**
                 //System.out.println(job.get(key)+" ************************!!!!!!! KEY");
-                if(job.get(key).toLowerCase().contains(value)){
+                if(job.get(key).toLowerCase().contains(value.toLowerCase())){
                     //if value is in the hashmap job and also the key is in the hashmap the search term is found
 //or you can add a new line character in the .add method
                     jobs.add(job);
@@ -145,7 +124,7 @@ old code edited 5/30/18 7:23
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
 
             }
