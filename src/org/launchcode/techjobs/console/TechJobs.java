@@ -1,8 +1,10 @@
 package org.launchcode.techjobs.console;
 
+import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -60,8 +62,11 @@ public class TechJobs {
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
 
+
+
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+
+                    printJobs(JobData.findByValue(searchTerm));//you can edit the print here
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -82,6 +87,7 @@ public class TechJobs {
         for (String choiceKey : choices.keySet()) {
             choiceKeys[i] = choiceKey;
             i++;
+
         }
 
         do {
@@ -98,19 +104,38 @@ public class TechJobs {
 
             // Validate user's input
             if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
-                System.out.println("Invalid choice. Try again.");
+                //System.out.println("Invalid choice. Try again.");
             } else {
                 validChoice = true;
             }
+
+
+
 
         } while(!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
+
+
+
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        if (someJobs.isEmpty()){
+            System.out.println("Invalid choice. Try again.");
+        }
+        else{
+            for (int i = 0; i < someJobs.size(); i++) {
+                System.out.println("******");
+
+                for (Map.Entry<String, String> job : someJobs.get(i).entrySet()) {
+                    System.out.println(job.getKey() + " (" + job.getValue() + ")");
+
+
+                }
+            }
+        }
     }
 }
