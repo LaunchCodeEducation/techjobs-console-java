@@ -10,9 +10,9 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by LaunchCode
+/* Created by LaunchCode
  */
 public class JobData {
 
@@ -21,6 +21,7 @@ public class JobData {
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
+
     /**
      * Fetch list of all values from loaded data,
      * without duplicates, for a given column.
@@ -28,6 +29,7 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
+
     public static ArrayList<String> findAll(String field) {
 
         // load data, if not already loaded
@@ -55,15 +57,16 @@ public class JobData {
     }
 
     /**
-     * Returns results of search the jobs data by key/value, using
+     * Returns  case-insensitive results of search the jobs data by key/value, using
      * inclusion of the search term.
      *
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
      * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param value Value of the field to search for
      * @return List of all jobs matching the criteria
+     *
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
@@ -76,7 +79,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -85,8 +88,35 @@ public class JobData {
     }
 
     /**
+     * Returns case insensitive, unique results of search the jobs data (all fields) by value.
+     *
+     * @param value Value of the field to search for
+     * @return List of all jobs matching the criteria
+     **/
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        //load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+            for (Map.Entry<String, String> category : job.entrySet()) {
+                if (category.getValue().toLowerCase().contains(value.toLowerCase()) && (!jobs.contains(job))) {
+                    jobs.add(job);
+                }
+            }
+
+        }
+        return jobs;
+
+
+    }
+    /**
      * Read in data from a CSV file and store it in a list
      */
+
+
     private static void loadData() {
 
         // Only load data once

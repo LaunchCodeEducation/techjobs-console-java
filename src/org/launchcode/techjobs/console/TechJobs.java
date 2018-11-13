@@ -2,19 +2,24 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Created by LaunchCode
  */
+
+/**
+ * 1st: initialize field map with kv pairs.
+ */
 public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
-        HashMap<String, String> columnChoices = new HashMap<>();
+        HashMap<String, String> columnChoices = new HashMap<>(); // columnChoices variable consists of Hashmap DT with DTs of String, String.
         columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
@@ -59,11 +64,19 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
-
+                // Search all fields
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    if (JobData.findByValue(searchTerm).isEmpty()) {
+                        System.out.println("No matching jobs");
+                    } else {
+                        printJobs(JobData.findByValue(searchTerm));
+                    }
                 } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    if (JobData.findByColumnAndValue(searchField, searchTerm).isEmpty()) {
+                        System.out.println("No matching jobs");
+                    } else {
+                        printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    }
                 }
             }
         }
@@ -110,7 +123,16 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        System.out.println();
+        for (HashMap<String, String> job : someJobs) {
+            for (Map.Entry<String, String> category : job.entrySet()) {
+                System.out.println(category.getKey() + " : " + category.getValue());
 
-        System.out.println("printJobs is not implemented yet");
+            }
+            System.out.println();
+            System.out.println("******");
+            System.out.println();
+        }
     }
 }
+
