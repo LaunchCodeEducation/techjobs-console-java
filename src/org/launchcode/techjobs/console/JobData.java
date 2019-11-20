@@ -57,12 +57,12 @@ public class JobData {
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
-     *
+     * <p>
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param column Column that should be searched.
+     * @param value  Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -76,7 +76,8 @@ public class JobData {
 
             String aValue = row.get(column);
             aValue = aValue.toLowerCase();
-            if (aValue.contains(value.toLowerCase())) {
+//            if (aValue.contains(value.toLowerCase())) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -125,11 +126,11 @@ public class JobData {
         }
     }
 
-    public static ArrayList<HashMap<String, String>> findByValue(String term){
+    public static ArrayList<HashMap<String, String>> findByValue(String term) {
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-        for(HashMap<String, String> row : allJobs) {
+        for (HashMap<String, String> row : allJobs) {
             /*Here we just get lucky since it's a string to string, but we're not guaranteed to get the same outcome
             every time
 
@@ -140,9 +141,9 @@ public class JobData {
 //            String value = row.toString();
             for (String field : row.keySet()) {
                 //String value = "";
-                if(field.toLowerCase().contains(term.toLowerCase())) {
-                jobs.add(row);
-                break;
+                if (field.toLowerCase().contains(term.toLowerCase())) {
+                    jobs.add(row);
+                    break;
                 }
             }
         }
