@@ -141,7 +141,7 @@ public class JobData {
 //            String value = row.toString();
             for (String field : row.keySet()) {
                 //String value = "";
-                if (field.toLowerCase().contains(term.toLowerCase())) {
+                if (row.get(field).toLowerCase().contains(term.toLowerCase())) {
                     jobs.add(row);
                     break;
                 }
