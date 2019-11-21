@@ -76,7 +76,7 @@ public class JobData {
 
             String aValue = row.get(column);
             aValue = aValue.toLowerCase();
-//            if (aValue.contains(value.toLowerCase())) {
+
             if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
@@ -131,16 +131,9 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
         for (HashMap<String, String> row : allJobs) {
-            /*Here we just get lucky since it's a string to string, but we're not guaranteed to get the same outcome
-            every time
 
-            A better way would be to use .keySet method, which is a method of HashMap.
-            Also we should use a break at the end of this findByValue method.
-             */
-
-//            String value = row.toString();
             for (String field : row.keySet()) {
-                //String value = "";
+
                 if (row.get(field).toLowerCase().contains(term.toLowerCase())) {
                     jobs.add(row);
                     break;

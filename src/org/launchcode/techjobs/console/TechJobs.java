@@ -129,6 +129,6 @@ public class TechJobs {
         } else {
             System.out.println("");
         }
-//        System.out.println("printJobs is not implemented yet");
+
     }
 }
