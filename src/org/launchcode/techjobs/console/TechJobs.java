@@ -111,7 +111,7 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        String asteriks = "*****";
+        String asteriks = CustomFormatter.colorWrap("**************", CustomFormatter.WHITE_BOLD_BRIGHT);
         String headerTemplate = asteriks + "%s";
         String footerTemplate = asteriks + "%s";;
         String rowTemplate = "%s: %s";
@@ -119,13 +119,17 @@ public class TechJobs {
 
         for (HashMap<String, String> job: someJobs) {
             jobCounter += 1;
-            String header = String.format(headerTemplate, "\nJob result: #" + jobCounter);
+            String colorizedResult = CustomFormatter.colorWrap("\nResult #" + jobCounter, CustomFormatter.BLUE_BRIGHT);
+            String header = String.format(headerTemplate, colorizedResult);
             String footer = String.format(footerTemplate, "\n");
 
             System.out.println(header);
 
             for (Map.Entry<String, String> entry : job.entrySet()) {
-                String formattedString = String.format(rowTemplate, entry.getKey(), entry.getValue());
+                String titleCasedKey = CustomFormatter.titleCase(entry.getKey());
+                String colorizedKey = CustomFormatter.colorWrap(titleCasedKey, CustomFormatter.WHITE_BOLD_BRIGHT);
+                String colorizedValue = CustomFormatter.colorWrap(entry.getValue(), CustomFormatter.GREEN_BOLD_BRIGHT);
+                String formattedString = String.format(rowTemplate, colorizedKey, colorizedValue);
                 System.out.println(formattedString);
             }
 
