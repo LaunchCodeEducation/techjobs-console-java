@@ -27,7 +27,9 @@ public class TechJobs {
         actionChoices.put("search", "Search");
         actionChoices.put("list", "List");
 
-        System.out.println("Welcome to LaunchCode's TechJobs App!");
+        String intro = "\n\nWelcome to LaunchCode's TechJobs App!";
+        String colorizedIntro =  CustomFormatter.colorWrap(intro, CustomFormatter.BLUE_BOLD_BRIGHT);
+        System.out.println(colorizedIntro);
 
         // Allow the user to search until they manually quit
         while (true) {
@@ -142,8 +144,6 @@ public class TechJobs {
             }
 
             System.out.println(footer);
-            return;
         }
-
     }
 }
