@@ -43,12 +43,13 @@ public class TechJobs {
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
-
-                    System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
+                    String header = "\n*** All " + columnChoices.get(columnChoice) + " Values ***";
+                    String colorizedHeader = CustomFormatter.colorWrap(header, CustomFormatter.WHITE_BOLD_BRIGHT);
+                    System.out.println(colorizedHeader);
 
                     // Print list of skills, employers, etc
                     for (String item : results) {
-                        System.out.println(item);
+                        System.out.println(CustomFormatter.colorWrap(item, CustomFormatter.GREEN_BRIGHT));
                     }
                 }
 
@@ -62,7 +63,7 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -111,11 +112,18 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if (someJobs.size() == 0) {
+            System.out.println("No jobs match the selected criteria.");
+            return;
+        }
+
         String asteriks = CustomFormatter.colorWrap("**************", CustomFormatter.WHITE_BOLD_BRIGHT);
         String headerTemplate = asteriks + "%s";
         String footerTemplate = asteriks + "%s";;
         String rowTemplate = "%s: %s";
         Integer jobCounter = 0;
+
+        System.out.println();
 
         for (HashMap<String, String> job: someJobs) {
             jobCounter += 1;
@@ -134,6 +142,7 @@ public class TechJobs {
             }
 
             System.out.println(footer);
+            return;
         }
 
     }
